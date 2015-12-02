@@ -1,34 +1,23 @@
-.thing-form {
-    margin: 20px 0;
-}
+$gradient : 0.3;
 
-#banner {
-    border-bottom: none;
-    margin-top: -20px;
+body{
+  background: url('../assets/images/guitar.jpeg') center center fixed;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, $gradient), rgba(0, 0, 0, $gradient)), url('../assets/images/guitar.jpeg');
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, $gradient), rgba(0, 0, 0, $gradient)), url('../assets/images/guitar.jpeg');
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, $gradient), rgba(0, 0, 0, $gradient)), url('../assets/images/guitar.jpeg');
+  background-image: -ms-linear-gradient(top, rgba(0, 0, 0, $gradient), rgba(0, 0, 0, $gradient)), url('../assets/images/guitar.jpeg');
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, $gradient)), to(rgba(0, 0, 0, $gradient))), url('../assets/images/guitar.jpeg');
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, $gradient), rgba(0, 0, 0, $gradient)), url('../assets/images/guitar.jpeg');
+  color: white;
 }
-
-#banner h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
+h1{
+  margin-top: 40%;
 }
-
-.hero-unit {
-    position: relative;
-    padding: 30px 15px;
-    color: #F5F5F5;
-    text-align: center;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    background: #4393B9;
-}
-
-.footer {
-    text-align: center;
-    padding: 30px 0;
-    margin-top: 70px;
-    border-top: 1px solid #E5E5E5;
-}
-
-.navbar-text {
-  margin-left: 15px;
+.container{
+  text-align: center;
 }

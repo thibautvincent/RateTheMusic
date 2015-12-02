@@ -5,30 +5,9 @@
 
 'use strict';
 
-var Thing = require('../api/thing/thing.model');
 var User = require('../api/user/user.model');
-
-Thing.find({}).remove(function() {
-  Thing.create({
-    name : 'Development Tools',
-    info : 'Integration with popular tools such as Bower, Grunt, Karma, Mocha, JSHint, Node Inspector, Livereload, Protractor, Jade, Stylus, Sass, CoffeeScript, and Less.'
-  }, {
-    name : 'Server and Client integration',
-    info : 'Built with a powerful and fun stack: MongoDB, Express, AngularJS, and Node.'
-  }, {
-    name : 'Smart Build System',
-    info : 'Build system ignores `spec` files, allowing you to keep tests alongside code. Automatic injection of scripts and styles into your index.html'
-  },  {
-    name : 'Modular Structure',
-    info : 'Best practice client and server structures allow for more code reusability and maximum scalability'
-  },  {
-    name : 'Optimized Build',
-    info : 'Build process packs up your templates as a single JavaScript payload, minifies your scripts/css/images, and rewrites asset names for caching.'
-  },{
-    name : 'Deployment Ready',
-    info : 'Easily deploy your app to Heroku or Openshift with the heroku and openshift subgenerators'
-  });
-});
+var Song = require('../api/song/song.model');
+var Album = require('../api/album/album.model');
 
 User.find({}).remove(function() {
   User.create({
@@ -46,4 +25,34 @@ User.find({}).remove(function() {
       console.log('finished populating users');
     }
   );
+});
+Song.find({}).remove(function(){
+  Album.find({}).remove(function(){
+    Album.create({
+      albumtitle: "Nevermind",
+      artist: "Nirvana",
+      released_at: "23/23/19",
+      genre: "Grunge",
+      cover:"http://images.rapgenius.com/180ec864a554a1ebdc8cd21979b5a4c8.1000x1000x1.jpg",
+      description: "Best album",
+    }).then(function(album){
+      console.log("test");
+      var song = {
+        title: "Smells Like Teen Spirit",
+        upvotes: 0,
+        albums: []
+      };
+      Album.addSong(album.id,song)
+      .then(function(){
+        console.log("test2");
+      });
+    });
+  });
+});
+
+
+var song = new Song({
+  title: "Smells Like Teen Spirit",
+  info: "First song",
+  albums : []
 });
