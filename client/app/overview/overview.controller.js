@@ -6,6 +6,5 @@ angular.module('rateTheMusicApp')
 
     $http.get('/api/albums').success(function(albums) {
       $scope.albums = albums;
-      console.log($scope.albums);
     });
   });

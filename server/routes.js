@@ -10,6 +10,7 @@ var path = require('path');
 module.exports = function(app) {
 
   // Insert routes below
+  app.use('/api/comments', require('./api/comment'));
   app.use('/api/songs', require('./api/song'));
   app.use('/api/albums', require('./api/album'));
   app.use('/api/users', require('./api/user'));
@@ -20,10 +21,6 @@ module.exports = function(app) {
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')
    .get(errors[404]);
 
-  app.route('/overview')
-    .get(function(req,res){
-      res.sendFile(path.resolve(app.get('appPath') + '/overview'));
-    });
   // All other routes should redirect to the index.html
   app.route('/*')
     .get(function(req, res) {

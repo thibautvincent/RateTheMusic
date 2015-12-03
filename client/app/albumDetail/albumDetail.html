@@ -1,0 +1,55 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+    <div class="header-container col-lg-12">
+      <h1 class="page-header">Overview</h1>
+      <div class="album-detail">
+        <div class="inner-content">
+          <div class="image-container col-xs-6 col-sm-4">
+            <img ng-src="{{album.cover}}">
+          </div>
+          <div class="text-container col-xs-6 col-sm-4">
+            <ul class="albumdetails">
+              <li>{{album.albumtitle}}</li>
+              <li>{{album.artist}}</li>
+              <li>{{album.description}}</li>
+              <li>{{album.genre}}</li>
+              <li>{{album.released_at}}</li>
+              <li><span ng-click="vote(album)">^ </span>upvotes: {{album.upvotes}}</li>
+
+            </ul>
+          </div>
+        </div>
+
+        <div class="comment-content col-xs-12 col-sm-6 col-md-8">
+          <div class= "comments" ng-repeat="comment in comments">
+            <div class="comment-content">
+            <h6>{{comment.title}}</h6>
+            <p>{{comment.body}}</p>
+            <h5>Posted by: {{author}}</h5>
+            <span><uib-rating class="current-rating" ng-model="review.rating" max="5" readonly="true"></uib-rating></span>
+          </div>
+        </div>
+        <form class="form" name="form" ng-submit="addComment(comment)" novalidate>
+          <div class="form-group" show-errors>
+            <div class="form-title-container col-lg-8 col-md-8 col-sm-8 col-xs-8">
+              <input name="title" type="text" ng-model="comment.title" placeholder="Title" class="form-control
+               " required/>
+               <p class="help-block" ng-if="form.title.$error.required">Title is required</p>
+            </div>
+          </div>
+          <div class="form-review-container form-group col-lg-8 col-md-8 col-sm-8 col-xs-8" show-errors>
+            <textarea name="body" type="text" ng-model="comment.body" placeholder="Review" class="form-control" required/>
+            <p class="help-block" ng-if="form.body.$error.required">Review is required</p>
+          </div>
+          <div class="submit-button">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+</div>
