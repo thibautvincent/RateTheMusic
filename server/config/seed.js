@@ -44,7 +44,7 @@ Song.find({}).remove(function(){
           Comment.create({
             title: "My opinio",
             body: "Great!! Really love this album",
-            author: "56604ce30cffb0b00af27209"
+            author: "566060af0a875d121120bc2c"
           }, function(err, comment){
             album.songs.push(song._id);
             album.comments.push(comment.id);
