@@ -6,7 +6,6 @@ var mongoose = require('mongoose'),
 var CommentSchema = new Schema({
   title: String,
   body: String,
-  upvotes : [{type: Schema.Types.ObjectId, ref: 'User'}],
   author: {type: Schema.Types.ObjectId, ref: 'User'},
   album: {type: Schema.Types.ObjectId, ref: 'Album'}
 });

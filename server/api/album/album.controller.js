@@ -133,7 +133,7 @@ exports.addComment = function(req, res){
       album.comments.push(comment._id);
       album.save(function(err){
         if (err) { return handleError(res, err); }
-        return res.status(200).json(album.comments);
+        return res.status(200).json(album);
       });
     });
   });

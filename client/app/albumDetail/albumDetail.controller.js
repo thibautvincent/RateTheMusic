@@ -20,8 +20,8 @@ angular.module('rateTheMusicApp')
       comment.author = Auth.getCurrentUser()._id;
       if($scope.content || $scope.content === '') {return ;}
       $http.post('/api/albums/' + $stateParams.id + '/comment/', comment)
-      .success(function(comments){
-        $scope.album.comments = comments;
+      .success(function(album){
+        getComments(album);
       }).error(function(err){
         console.log(err);
       });
