@@ -3,6 +3,9 @@
 var _ = require('lodash');
 var Song = require('../song/song.model');
 var Album = require('./album.model');
+var Comment = require('../comment/comment.model');
+var mongoose = require('mongoose');
+var Promise = require('bluebird');
 
 // Get list of albums
 exports.index = function(req, res) {
@@ -17,10 +20,34 @@ exports.show = function(req, res) {
   Album.findById(req.params.id, function (err, album) {
     if(err) { return handleError(res, err); }
     if(!album) { return res.status(404).send('Not Found'); }
+    // for(var i = 0; album.comments.length; i++){
+    //   Comment.findById(album.comments[i], function(err, comment){
+    //     if (err) { return handleError(res, err); }
+    //     album.comments[i] = comment;
+    //   });
+    // }
     return res.json(album);
   });
 };
+//Get comments from album
+exports.getComments = function(req, res){
 
+  var commentsFull = [];
+  console.log('comments');
+  Album.findById(req.params.id)
+    .then(function (err, album) {
+      if(err) { return handleError(res, err); }
+      if(!album) { return res.status(404).send('Not Found'); }
+      return Comment.find({
+        _id: {
+          $in: album.comments
+        }
+      });
+    })
+    .then(function (comments) {
+      return res.status(200).json(comments);
+    });
+};
 // Creates a new album in the DB.
 exports.create = function(req, res) {
   Album.create(req.body, function(err, album) {
@@ -57,7 +84,6 @@ exports.destroy = function(req, res) {
 
 //Add a song to an album
 exports.addSong = function(req, res){
-  console.log("Reached addSong");
     Album.findById(req.params.id, function (err, album){
       if(err) {return handleError(res,err);}
       if(!album) { return res.status(404).send('Not Found'); }
@@ -73,7 +99,47 @@ exports.addSong = function(req, res){
       });
     })
 }
+//like an album
+exports.vote = function(req, res) {
+  Album.findById(req.params.id, function (err, album){
+    if(err) {return handleError(res,err);}
+    if(!album) { return res.status(404).send('Not Found'); }
+    if(album.upvotes.indexOf(req.params.user) === -1){
+      album.upvotes.push(req.params.user);
+    }else{
+      album.upvotes.splice(album.upvotes.indexOf(req.params.user),1);
+    }
 
+    album.save(function(err){
+      if(err) {return handleError(res, err)};
+      console.log(album);
+      return res.status(200).json(album.upvotes.length);
+    });
+  });
+}
+
+//React on an album
+exports.addComment = function(req, res){
+  Album.findById(req.params.id, function(err, album){
+    if(err) { return handleError(res, err); }
+    if(!album) { return res.status(404).send('Not Found'); }
+    Comment.create({
+      title: req.body.title,
+      body: req.body.body,
+      author: req.body.author,
+      album: req.params.id
+    },function(err, comment){
+      if(err) { return handleError(res, err); }
+      album.comments.push(comment._id);
+      album.save(function(err){
+        if (err) { return handleError(res, err); }
+        return res.status(200).json(album.comments);
+      });
+    });
+  });
+};
+
+//Remove song from album
 exports.removeSong = function(req, res){
   Album.findById(req.params.id, function(err, album){
     if(err) { return handleError(res, err); }

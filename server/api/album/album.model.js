@@ -10,7 +10,8 @@ var AlbumSchema = new Schema({
   genre: String,
   description: String,
   cover: String,
-  upvotes: {type: Number, default: 0},
+  comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
+  upvotes: [{type: Schema.Types.ObjectId, ref: 'User'}],
   songs: [{type: Schema.Types.ObjectId, ref: 'Song'}]
 });
 
