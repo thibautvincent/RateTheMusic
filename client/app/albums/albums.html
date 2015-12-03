@@ -1,0 +1,38 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+  <ul class="list-group">
+    <li class="list-group-item" ng-repeat="album in albums">
+      <div>
+        <strong>{{album.title}}</strong><br>
+        <span class="text-muted">{{album.artist}}</span>
+        <a ng-click="delete(album)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+        <a ng-click="albumdDetails(album)" class="edit"><span class="glyphicon glyphicon-pencil pull-right"></span></a>
+      </div>
+        <span ng-hide="showed" class="details">
+          <form class="form" name="form" ng-submit="register(form)" novalidate>
+
+            <div class="form-group" ng-class="{ 'has-success': form.name.$valid && submitted,
+                                                'has-error': form.name.$invalid && submitted }">
+              <label>Title</label>
+
+              <input type="text" name="name" ng-placeholder="{{album.title}}"  ng-model="album.title"
+                     required/>
+              <p class="help-block" ng-show="form.name.$error.required && submitted">
+                A name is required
+              </p>
+            </div>
+
+
+
+            <div>
+              <button class="btn btn-inverse btn-lg btn-login" type="submit">
+                Update
+              </button>
+            </div>
+
+          </form>
+        </span>
+    </li>
+  </ul>
+</div>
