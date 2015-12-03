@@ -3,13 +3,29 @@
 .list-group-item span:first-of-type{
   margin-right: 10px;
 }
+.list-group{
+  text-align: left;
+  width: 80%;
+  margin: 50px auto;
+}
 .details{
-  height: 200px;
   color: black;
   display: block;
   width: 100%;
+  form{
+    width: 70%;
+    margin: 30px auto;
+  }
 }
 .ng-hide {
   /* this is just another form of hiding an element */
   display: none;
+}
+
+.col-sm-2 {
+     width: auto !important;
+}
+
+textarea{
+  width: 100%;
 }

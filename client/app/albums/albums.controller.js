@@ -2,7 +2,6 @@
 
 angular.module('rateTheMusicApp')
   .controller('AlbumsCtrl', function ($scope, Auth, $http) {
-    $scope.showed = false;
 
     $http.get('/api/albums')
     .success(function(albums){
@@ -21,6 +20,38 @@ angular.module('rateTheMusicApp')
     };
 
     $scope.albumdDetails = function(album){
-      $scope.showed = $scope.showed === false ? true: false;
+      $http.get('/api/albums/'+ album._id+'/songs')
+      .succes(function(songs){
+        console.log(songs);
+        $scope.showed = $scope.showed === false ? true: false;
+        return album._id;
+      });
+    };
+
+    $scope.update = function(album,form){
+      if(form.$valid) {
+        $http.put('/api/albums/' + album._id, form)
+        .success(function(album){
+          $http.get('/api/albums')
+          .success(function(albums){
+            $scope.albums = albums;
+          });
+        });
+      }).catch( function(err) {
+        err = err.data;
+        $scope.errors = {};
+
+          // Update validity of form fields that match the mongoose errors
+          angular.forEach(err.errors, function(error, field) {
+            form[field].$setValidity('mongoose', false);
+            $scope.errors[field] = error.message;
+          });
+        });
+      }
+
+      $scope.create = function(){
+        console.log("test");
+      };
+
     }
   });
