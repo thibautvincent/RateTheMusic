@@ -10,15 +10,20 @@
           </div>
           <div class="text-container col-xs-6 col-sm-4">
             <ul class="albumdetails">
-              <li>{{album.albumtitle}}</li>
-              <li>{{album.artist}}</li>
-              <li>{{album.description}}</li>
-              <li>{{album.genre}}</li>
-              <li>{{album.released_at}}</li>
+              <li>Title: {{album.albumtitle}}</li>
+              <li>Artist: {{album.artist}}</li>
+              <li>Description: {{album.description}}</li>
+              <li>Genre: {{album.genre}}</li>
+              <li>Release date: {{album.released_at}}</li>
               <li><span ng-click="vote(album)">^ </span>upvotes: {{album.upvotes}}</li>
 
             </ul>
           </div>
+        </div>
+        <div class="song-content" >
+          <ul ng-repeat="song in songs">
+            <li>{{song.title}}</li>
+          </ul>
         </div>
 
         <div class="comment-content col-xs-12 col-sm-6 col-md-8">

@@ -7,13 +7,26 @@ angular.module('rateTheMusicApp')
     function getAlbum($stateParams){
       $http.get('/api/albums/' + $stateParams.id)
       .success(function(album){
-        console.log(album);
         $scope.album =  album;
         $scope.album.upvotes = album.upvotes.length;
         getComments(album);
+        $scope.songs = getSongs(album.songs);
       });
 
+
     }
+
+    function getSongs(songs){
+      var tempSongs = [];
+      for(var i = 0; i < songs.length; i++){
+        $http.get('/api/songs/' + songs[i])
+        .success(function(song){
+          tempSongs.push(song);
+        });
+      }
+      console.log(tempSongs);
+      return tempSongs;
+    };
 
     $scope.addComment = function(comment){
       //apicall to add comment
