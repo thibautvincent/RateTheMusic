@@ -1,0 +1,56 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<div class="container">
+
+<h1>Album</h1>
+<form name="form" class="form-horizontal" ng-submit="create(form)" validate>
+
+  <div class="form-group" ng-class="{ 'has-success': form.albumtitle.$valid && submitted,'has-error': form.albumtitle.$invalid && submitted }">
+    <label class="col-sm-2 control-label">Title:</label>
+    <div>
+    <input type="text" class="form-control" name="titel" placeholder="{{album.albumtitle}}" ng-model="form.albumtitle"/>
+    </div>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-success': form.artist.$valid && submitted,'has-error': form.artist.$invalid && submitted }">
+    <label class="col-sm-2 control-label">Artist:</label>
+    <div>
+      <input type="text" class="form-control" name="albumartist" placeholder="{{album.artist}}" ng-model="form.artist"/>
+    </div>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-success': form.released_at.$valid && submitted,'has-error': form.released_at.$invalid && submitted }">
+    <label class="col-sm-2 control-label">Released at:</label>
+    <div>
+      <input type="text" class="form-control" name="releasedate" placeholder="{{album.released_at}}" ng-model="form.released_at"/>
+    </div>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-success': form.genre.$valid && submitted,'has-error': form.genre.$invalid && submitted }">
+    <label class="col-sm-2 control-label">Genre:</label>
+    <div>
+      <input type="text" class="form-control" name="style" placeholder="{{album.genre}}" ng-model="form.genre"/>
+    </div>
+  </div>
+  <div class="form-group" ng-class="{ 'has-success': form.cover.$valid && submitted,'has-error': form.cover.$invalid && submitted }">
+    <label class="col-sm-2 control-label">Cover</label>
+    <div>
+      <input type="text" class="form-control" name="linkcover" placeholder="{{album.cover}}" ng-model="form.cover"/>
+    </div>
+  </div>
+
+  <div class="form-group" ng-class="{ 'has-success': form.description.$valid && submitted,'has-error': form.description.$invalid && submitted }">
+    <label class="col-sm-2 control-label">Description:</label><br><br>
+    <div>
+      <textarea name="descrip" placeholder="{{album.description}}" ng-model="form.description"></textarea>
+    </div>
+  </div>
+
+  <div>
+    <button class="btn btn-inverse btn-lg" type="submit">
+      Update
+    </button>
+    <br>
+  </div>
+
+</form>
+</div>

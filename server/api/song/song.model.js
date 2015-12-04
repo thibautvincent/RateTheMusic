@@ -5,8 +5,7 @@ var mongoose = require('mongoose'),
 
 var SongSchema = new Schema({
   title: String,
-  upvotes: {type : Number, default: 0},
-  albums: [{type: Schema.Types.ObjectId, ref: 'Album'}]
+  album: {type: Schema.Types.ObjectId, ref: 'Album'}
 });
 
 module.exports = mongoose.model('Song', SongSchema);

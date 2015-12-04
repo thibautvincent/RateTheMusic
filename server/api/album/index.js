@@ -7,12 +7,13 @@ var router = express.Router();
 
 router.get('/', controller.index);
 router.get('/:id', controller.show);
-router.get('/:id/comments', controller.getComments);
 router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
-router.post('/:id/songs/:song', controller.addSong);
+router.post('/:id/songs', controller.addSong);
 router.post('/:id/vote/:user', controller.vote);
 router.post('/:id/comment', controller.addComment);
+router.get('/:id/comments', controller.getComments);
+
 module.exports = router;
