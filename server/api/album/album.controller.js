@@ -87,18 +87,21 @@ exports.addSong = function(req, res){
     Album.findById(req.params.id, function (err, album){
       if(err) {return handleError(res,err);}
       if(!album) { return res.status(404).send('Not Found'); }
-
+      console.log(req);
       var song = new Song(req.body);
-      song.albums.push(album);
+      console.log(song);
+      song.album = req.params.id;
       song.save(function(err, song){
         album.songs.push(song);
         album.save(function(err){
           if (err) { return handleError(res, err); }
-          return res.status(200).json(album);
+          return res.status(200).json(song);
         });
       });
     })
 }
+
+
 //like an album
 exports.vote = function(req, res) {
   Album.findById(req.params.id, function (err, album){
@@ -117,23 +120,6 @@ exports.vote = function(req, res) {
     });
   });
 }
-
-// //get songs of Album
-// exports.getSongs = function(req, res){
-//   var
-//   Album.findById(req.params.id, function(err, album){
-//     if(err) {return handleError(res, err);}
-//     if(!album) {return res.status(404).send('Not found');}
-//
-//     for(var i = 0; i < album.songs.length; i++){
-//       Song.findById(album.songs[i], function(err, song){
-//         if(err) {return handleError(res, err);}
-//
-//       })
-//
-//     }
-//   });
-// }
 
 //React on an album
 exports.addComment = function(req, res){
@@ -156,21 +142,6 @@ exports.addComment = function(req, res){
   });
 };
 
-//Remove song from album
-exports.removeSong = function(req, res){
-  Album.findById(req.params.id, function(err, album){
-    if(err) { return handleError(res, err); }
-    if(!album) { return res.status(404).send('Not Found'); }
-    for(var i = 0; i < album.songs.size; i++){
-      if(res.body.id === album.songs[i]){
-        album.songs[i].remove(function(err){
-          if (err) { return handleError(res, err); }
-          return res.status(200).json(album);
-        })
-      }
-    }
-  });
-}
 function handleError(res, err) {
   return res.status(500).send(err);
 }

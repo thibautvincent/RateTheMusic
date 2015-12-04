@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Song = require('./song.model');
+var Album = require('../album/album.model');
 
 // Get list of songs
 exports.index = function(req, res) {
@@ -44,12 +45,23 @@ exports.update = function(req, res) {
 
 // Deletes a song from the DB.
 exports.destroy = function(req, res) {
-  Song.findById(req.params.id, function (err, song) {
-    if(err) { return handleError(res, err); }
+  Song.findById(req.params.id)
+  .then(function(song){
+    // if(err) { return handleError(res, err); }
     if(!song) { return res.status(404).send('Not Found'); }
-    song.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.status(204).send('No Content');
+    song.remove();
+    Album.findById(song.album)
+    .then(function(album){
+      // if(err) { return handleError(res, err); }
+      if(!album) { return res.status(404).send('Not Found'); }
+        if(album.songs.indexOf(req.params.id) != -1){
+          album.songs.splice(album.songs.indexOf(req.params.id),1);
+          album.save()
+          return res.status(200).json(album.songs);
+        }else{
+          return res.status(404).send("Not found");
+        }
+
     });
   });
 };

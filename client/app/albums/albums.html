@@ -67,19 +67,24 @@
             </div>
 
           </form>
-          <h1>Songs</h1<
+          <h1>Songs</h1>
           <hr>
-          <form name="form" class="form-horizontal" ng-submit="updateSongs(album,form)" validate>
             <div ng-repeat="song in songs">
-              <input type="text" class="form-control" name="ti" placeholder="{{song.title}}" ng-model="form.title"/>
-              <input hidden value={{song._id}}/>
+              <form name="form" class="form-horizontal " validate>
+                <input type="text" class="form-control songInput" name="ti" placeholder="{{song.title}}" ng-model="song.title"/>
+                <a ng-click="deleteSong(song)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+                <a ng-click="updateSong(song)" ><span class="glyphicon glyphicon-pencil pull-right"></span></a>
+              </form>
             </div>
-            <br>
-            <button class="btn btn-inverse btn-lg" type="submit">
-              Update
-            </button>
-            <br>
+            <form name="addSongForm" class="form-horizontal"  ng-submit="addSong(song)" validate>
+              <input type="text" id="addSongForm" class="form-control" name="title" placeholder="{{song.title}}" ng-model="song.title"/>
+              <button class="btn btn-inverse btn-lg" type="submit">
+                Add
+              </button>
           </form>
+
+            <br>
+
 
         </span>
     </li>

@@ -25,19 +25,10 @@ angular.module('rateTheMusicApp')
     };
 
     $scope.albumdDetails = function(album){
+      $scope.selectedalbum = album;
       $scope.songs = [];
-      for(var i = 0; i < album.songs.length; i++){
-        $http.get('/api/songs/' + album.songs[i])
-        .success(function(song){
-          $scope.songs.push(song);
-        });
-      }
+      getSongs();
       $scope.showed[album._id] = $scope.showed[album._id] === false ? true: false;
-      // $http.get('/api/albums/'+ id +'/songs')
-      // .success(function(songs){
-      //   console.log(songs);
-      //
-      // });
     };
 
     $scope.update = function(album,form){
@@ -50,9 +41,38 @@ angular.module('rateTheMusicApp')
           });
         });
       }
-    }
+    };
 
-      $scope.create = function(){
-        console.log("test");
-      };
+    $scope.deleteSong = function(song){
+      $http.delete('/api/songs/'+ song._id)
+      .success(function(songs){
+        console.log(songs);
+        getSongs();
+      });
+    };
+
+    $scope.updateSong = function(song){
+      $http.put('/api/songs/' + song._id, song)
+      .success(function(){
+        getSongs();
+      });
+    };
+
+    $scope.addSong = function(song){
+      //router.post('/:id/songs/:song', controller.addSong);
+      $http.post('/api/albums/' + $scope.selectedalbum._id + '/songs/', song)
+      .success(function(song){
+        $scope.songs.push(song);
+      })
+    };
+
+    function getSongs(){
+      $scope.songs = [];
+      for(var i = 0; i < $scope.selectedalbum.songs.length; i++){
+        $http.get('/api/songs/' + $scope.selectedalbum.songs[i])
+        .success(function(song){
+          $scope.songs.push(song);
+        });
+      }
+    };
   });
