@@ -6,6 +6,11 @@ angular.module('rateTheMusicApp')
     $http.get('/api/albums')
     .success(function(albums){
       $scope.albums = albums;
+      $scope.showed = [];
+      for(var i = 0; i < albums.length; i++){
+        var id = albums[i]._id;
+        $scope.showed[id]= false;
+      }
     });
 
     $scope.delete = function(album) {
@@ -20,38 +25,34 @@ angular.module('rateTheMusicApp')
     };
 
     $scope.albumdDetails = function(album){
-      $http.get('/api/albums/'+ album._id+'/songs')
-      .succes(function(songs){
-        console.log(songs);
-        $scope.showed = $scope.showed === false ? true: false;
-        return album._id;
-      });
+      $scope.songs = [];
+      for(var i = 0; i < album.songs.length; i++){
+        $http.get('/api/songs/' + album.songs[i])
+        .success(function(song){
+          $scope.songs.push(song);
+        });
+      }
+      $scope.showed[album._id] = $scope.showed[album._id] === false ? true: false;
+      // $http.get('/api/albums/'+ id +'/songs')
+      // .success(function(songs){
+      //   console.log(songs);
+      //
+      // });
     };
 
     $scope.update = function(album,form){
-      if(form.$valid) {
+      if(form!=null) {
         $http.put('/api/albums/' + album._id, form)
-        .success(function(album){
+        .success(function(){
           $http.get('/api/albums')
           .success(function(albums){
             $scope.albums = albums;
           });
         });
-      }).catch( function(err) {
-        err = err.data;
-        $scope.errors = {};
-
-          // Update validity of form fields that match the mongoose errors
-          angular.forEach(err.errors, function(error, field) {
-            form[field].$setValidity('mongoose', false);
-            $scope.errors[field] = error.message;
-          });
-        });
       }
+    }
 
       $scope.create = function(){
         console.log("test");
       };
-
-    }
   });

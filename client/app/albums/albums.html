@@ -2,7 +2,7 @@
 
 <div class="container">
   <div>
-    <a ng-click="create()" class="edit"><span class="glyphicon glyphicon-plus pull-right"></span></a>
+    <a ui-sref="createAlbum" class="edit"><span class="glyphicon glyphicon-plus pull-right"></span></a>
 </div>
   </div>
   <ul class="list-group">
@@ -13,9 +13,10 @@
         <a ng-click="delete(album)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
         <a ng-click="albumdDetails(album)"><span class="glyphicon glyphicon-pencil pull-right"></span></a>
       </div>
-        <span ng-show="showed" class="details ">
+        <span ng-show="showed[album._id]" class="details ">
           <hr>
-          <form name="form" class="form-horizontal" ng-submit="update(album,form)" novalidate>
+          <h1>Album</h1>
+          <form name="form" class="form-horizontal" ng-submit="update(album,form)" validate>
 
             <div class="form-group" ng-class="{ 'has-success': form.albumtitle.$valid && submitted,'has-error': form.albumtitle.$invalid && submitted }">
               <label class="col-sm-2 control-label">Title:</label>
@@ -59,12 +60,27 @@
             </div>
 
             <div>
-              <button class="btn btn-inverse btn-lg btn-login" type="submit">
+              <button class="btn btn-inverse btn-lg" type="submit">
                 Update
               </button>
+              <br>
             </div>
 
           </form>
+          <h1>Songs</h1<
+          <hr>
+          <form name="form" class="form-horizontal" ng-submit="updateSongs(album,form)" validate>
+            <div ng-repeat="song in songs">
+              <input type="text" class="form-control" name="ti" placeholder="{{song.title}}" ng-model="form.title"/>
+              <input hidden value={{song._id}}/>
+            </div>
+            <br>
+            <button class="btn btn-inverse btn-lg" type="submit">
+              Update
+            </button>
+            <br>
+          </form>
+
         </span>
     </li>
   </ul>

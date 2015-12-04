@@ -32,9 +32,6 @@ angular.module('rateTheMusicApp')
         $http.get('/api/comments/' + album.comments[i])
         .success(function(comment){
           $scope.comments.push(comment);
-          // User.findById(comment.author, function(user){
-          //   $scope.author = user.name;
-          // });
           $http.get('/api/users/' + comment.author)
           .success(function(user){
             $scope.author = user.name;

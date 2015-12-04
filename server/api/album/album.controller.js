@@ -118,6 +118,23 @@ exports.vote = function(req, res) {
   });
 }
 
+// //get songs of Album
+// exports.getSongs = function(req, res){
+//   var
+//   Album.findById(req.params.id, function(err, album){
+//     if(err) {return handleError(res, err);}
+//     if(!album) {return res.status(404).send('Not found');}
+//
+//     for(var i = 0; i < album.songs.length; i++){
+//       Song.findById(album.songs[i], function(err, song){
+//         if(err) {return handleError(res, err);}
+//
+//       })
+//
+//     }
+//   });
+// }
+
 //React on an album
 exports.addComment = function(req, res){
   Album.findById(req.params.id, function(err, album){
