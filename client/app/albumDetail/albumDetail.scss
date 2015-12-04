@@ -1,0 +1,40 @@
+.image-container img{
+  width: 100% !important;
+  height: auto !important;
+}
+.albumdetails{
+  list-style-type: none;
+}
+.albumdetails li{
+  margin-top: 15px;
+  text-align: left;
+  font-weight: bolder;
+}
+.albumdetails li:first-of-type{
+  font-size: 30px;
+}
+.comment-content{
+  margin-top: 20px;
+  width: 80%;
+  text-align: left;
+}
+
+.comment-content form input{
+  height: 50px;
+  width: 100%;
+}
+.comment-content form button{
+  margin-top: 10px;
+  float: right;
+}
+.comments{
+  width: 100%;
+}
+.comment-content{
+  width: 100%;
+}
+.inner-content{
+  .col-sm-4{
+    float: left !important;
+  }
+}

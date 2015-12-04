@@ -1,0 +1,18 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container">
+    <div class="header-container col-lg-12">
+      <h1 class="page-header">Overview</h1>
+      <div class="album-overview  col-lg-3 col-md-3 col-sm-4 col-xs-6" ng-repeat="album in albums">
+        <div class="inner-content">
+          <div class="image-container">
+            <a ui-sref="albumDetail({id : album._id})"><img ng-src="{{album.cover}}"></a>
+          </div>
+          <div class="text-container">
+            <p>{{album.albumtitle}}</p>
+            <p>{{album.artist}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

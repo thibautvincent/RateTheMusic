@@ -9,8 +9,8 @@ module.exports = {
   DOMAIN:           'http://localhost:9000',
   SESSION_SECRET:   'ratethemusic-secret',
 
-  FACEBOOK_ID:      'app-id',
-  FACEBOOK_SECRET:  'secret',
+  FACEBOOK_ID:      '1826402207586440',
+  FACEBOOK_SECRET:  '5ab5369b42aa7111f3a97a423cc84df5',
 
   TWITTER_ID:       'app-id',
   TWITTER_SECRET:   'secret',

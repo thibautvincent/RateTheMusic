@@ -18,7 +18,9 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
-  require('../api/thing/thing.socket').register(socket);
+  require('../api/comment/comment.socket').register(socket);
+  require('../api/song/song.socket').register(socket);
+  require('../api/album/album.socket').register(socket);
 }
 
 module.exports = function (socketio) {
