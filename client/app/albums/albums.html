@@ -11,9 +11,9 @@
         <strong>{{album.albumtitle}}</strong><br>
         <span class="text-muted">{{album.artist}}</span>
         <a ng-click="delete(album)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
-        <a ng-click="albumdDetails(album)"><span class="glyphicon glyphicon-pencil pull-right"></span></a>
+        <a ng-click="albumdDetails(album)" class="edit"><span class="glyphicon glyphicon-pencil pull-right"></span></a>
       </div>
-        <span ng-show="showed[album._id]" class="details ">
+        <span ng-show="open[album._id]" class="details ">
           <hr>
           <h1>Album</h1>
           <form name="form" class="form-horizontal" ng-submit="update(album,form)" validate>
@@ -74,6 +74,17 @@
               <input type="text" class="form-control" name="ti" placeholder="{{song.title}}" ng-model="form.title"/>
               <input hidden value={{song._id}}/>
             </div>
+              <form name="form" class="form-horizontal songdetail" validate>
+                <input type="text" class="form-control songInput" name="ti" placeholder="{{song.title}}" ng-model="song.title"/>
+                <a ng-click="updateSong(song)" ><span class="glyphicon glyphicon-pencil pull-right"></span></a>
+                <a ng-click="deleteSong(song)" class="trash"><span class="glyphicon glyphicon-trash pull-right"></span></a>
+              </form>
+            </div>
+            <form name="addSongForm" class="form-horizontal songdetail"  validate>
+              <input type="text" id="addSongForm" class="form-control" name="title" placeholder="{{song.title}}" ng-model="song.title"/>
+              <a ng-click="addSong(song)"><span class="glyphicon glyphicon-plus pull-right"></span></a>
+          </form>
+
             <br>
             <button class="btn btn-inverse btn-lg" type="submit">
               Update

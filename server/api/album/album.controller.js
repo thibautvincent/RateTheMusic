@@ -88,16 +88,29 @@ exports.addSong = function(req, res){
       if(err) {return handleError(res,err);}
       if(!album) { return res.status(404).send('Not Found'); }
 
-      var song = new Song(req.body);
-      song.albums.push(album);
-      song.save(function(err, song){
-        album.songs.push(song);
-        album.save(function(err){
-          if (err) { return handleError(res, err); }
-          return res.status(200).json(album);
-        });
-      });
-    })
+      Song.find({})
+      .then(function(songs){
+
+        var song = new Song(req.body);
+        for (var i = 0; i < songs.length; i++) {
+          Song.findById(songs[i])
+          .then(function(song){
+            console.log(song.title);
+            console.log(req.body.title);
+            console.log(song.title === req.body.title);
+            if(song.title === req.body.title ){
+
+              return res.status(201).send("Already exists");
+            }
+          });
+        }
+          song.album = req.params.id;
+          song.save()
+          album.songs.push(song);
+          album.save();
+          return res.status(200).json(song);
+    });
+  });
 }
 //like an album
 exports.vote = function(req, res) {

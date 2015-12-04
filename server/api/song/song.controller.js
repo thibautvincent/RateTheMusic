@@ -37,7 +37,12 @@ exports.update = function(req, res) {
     var updated = _.merge(song, req.body);
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
-      return res.status(200).json(song);
+      Album.findById(song.album)
+      .then(function(album){
+        if(!album) { return res.status(404).send('Not Found'); }
+        return res.status(200).json(album.songs);
+      });
+
     });
   });
 };
@@ -47,9 +52,20 @@ exports.destroy = function(req, res) {
   Song.findById(req.params.id, function (err, song) {
     if(err) { return handleError(res, err); }
     if(!song) { return res.status(404).send('Not Found'); }
-    song.remove(function(err) {
-      if(err) { return handleError(res, err); }
-      return res.status(204).send('No Content');
+
+    Album.findById(song.album)
+    .then(function(album){
+      // if(err) { return handleError(res, err); }
+      if(!album) { return res.status(404).send('Not Found'); }
+        if(album.songs.indexOf(req.params.id) != -1){
+          album.songs.splice(album.songs.indexOf(req.params.id),1);
+          album.save()
+          song.remove();
+          return res.status(200).json(album.songs);
+        }else{
+          return res.status(404).send("Not found");
+        }
+
     });
   });
 };

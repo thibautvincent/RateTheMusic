@@ -11,7 +11,8 @@
 .details{
   color: black;
   display: block;
-  width: 100%;
+  width: 80%;
+  margin: 20px auto;
   form{
     width: 70%;
     margin: 30px auto;
@@ -32,4 +33,32 @@ textarea{
 
 .btn{
   float: right;
+}
+
+
+.form-horizontal{
+  display: inline;
+  a{
+    margin-top: 6px;
+    margin-left: 10px;
+  }
+}
+
+.form-control{
+  width: 100%;
+}
+.list-group-item span:first-of-type {
+  margin-right: auto !important;
+}
+.songdetail{
+  display: flex;
+}
+
+.songdetail button{
+  padding: 0;
+  margin-left: 10px;
+}
+.button{
+  background-color: white !important;
+  border: none;
 }

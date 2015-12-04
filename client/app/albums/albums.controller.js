@@ -2,14 +2,14 @@
 
 angular.module('rateTheMusicApp')
   .controller('AlbumsCtrl', function ($scope, Auth, $http) {
+    $scope.open = [];
+    $scope.songs = [];
 
     $http.get('/api/albums')
     .success(function(albums){
       $scope.albums = albums;
-      $scope.showed = [];
       for(var i = 0; i < albums.length; i++){
-        var id = albums[i]._id;
-        $scope.showed[id]= false;
+        $scope.open[albums[i]._id] = false;
       }
     });
 
@@ -25,19 +25,10 @@ angular.module('rateTheMusicApp')
     };
 
     $scope.albumdDetails = function(album){
-      $scope.songs = [];
-      for(var i = 0; i < album.songs.length; i++){
-        $http.get('/api/songs/' + album.songs[i])
-        .success(function(song){
-          $scope.songs.push(song);
-        });
-      }
-      $scope.showed[album._id] = $scope.showed[album._id] === false ? true: false;
-      // $http.get('/api/albums/'+ id +'/songs')
-      // .success(function(songs){
-      //   console.log(songs);
-      //
-      // });
+
+      $scope.selectedalbum = album;
+      $scope.songs = getSongs(album.songs);
+      changeStatus(album);
     };
 
     $scope.update = function(album,form){
@@ -50,9 +41,58 @@ angular.module('rateTheMusicApp')
           });
         });
       }
-    }
 
-      $scope.create = function(){
-        console.log("test");
-      };
+    };
+
+    $scope.deleteSong = function(song){
+      $http.delete('/api/songs/'+ song._id)
+      .success(function(songs){
+        $scope.songs = getSongs(songs);
+      });
+    };
+
+    $scope.updateSong = function(song){
+      $http.put('/api/songs/' + song._id, song)
+      .success(function(songs){
+        $scope.songs = getSongs(songs);
+      });
+    };
+
+    $scope.addSong = function(song){
+      $http.post('/api/albums/' + $scope.selectedalbum._id + '/songs/', song)
+      .success(function(song){
+        $scope.songs.push(song);
+      })
+      .error(function(err){
+        console.log(err);
+      })
+    };
+
+    function getSongs(songs){
+      var tempSongs = [];
+      for(var i = 0; i < songs.length; i++){
+        $http.get('/api/songs/' + songs[i])
+        .success(function(song){
+          tempSongs.push(song);
+        });
+      }
+      return tempSongs;
+    };
+
+    function changeStatus(album){
+      $http.get('/api/albums')
+      .success(function(albums){
+        for (var i = 0; i < albums.length; i++) {
+          if(albums[i]._id === album._id){
+            if($scope.open[album._id] === true){
+              $scope.open[album._id] = false;
+            }else{
+              $scope.open[album._id] = true;
+            }
+          }else{
+            $scope.open[albums[i]._id] = false;
+          }
+        }
+      })
+    }
   });
