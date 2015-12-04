@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var Song = require('./song.model');
+var Album = require('../album/album.model');
 
 // Get list of songs
 exports.index = function(req, res) {
@@ -49,8 +50,9 @@ exports.update = function(req, res) {
 
 // Deletes a song from the DB.
 exports.destroy = function(req, res) {
-  Song.findById(req.params.id, function (err, song) {
-    if(err) { return handleError(res, err); }
+  Song.findById(req.params.id)
+  .then(function(song){
+    // if(err) { return handleError(res, err); }
     if(!song) { return res.status(404).send('Not Found'); }
 
     Album.findById(song.album)

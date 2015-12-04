@@ -25,7 +25,6 @@ angular.module('rateTheMusicApp')
     };
 
     $scope.albumdDetails = function(album){
-
       $scope.selectedalbum = album;
       $scope.songs = getSongs(album.songs);
       changeStatus(album);
@@ -41,7 +40,6 @@ angular.module('rateTheMusicApp')
           });
         });
       }
-
     };
 
     $scope.deleteSong = function(song){
@@ -62,9 +60,6 @@ angular.module('rateTheMusicApp')
       $http.post('/api/albums/' + $scope.selectedalbum._id + '/songs/', song)
       .success(function(song){
         $scope.songs.push(song);
-      })
-      .error(function(err){
-        console.log(err);
       })
     };
 
@@ -95,4 +90,4 @@ angular.module('rateTheMusicApp')
         }
       })
     }
-  });
+});
