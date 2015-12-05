@@ -15,7 +15,7 @@
               <li>Description: {{album.description}}</li>
               <li>Genre: {{album.genre}}</li>
               <li>Release date: {{album.released_at}}</li>
-              <li><span ng-click="vote(album)">^ </span>upvotes: {{album.upvotes}}</li>
+              <li><span id="likebtn" class="glyphicon glyphicon-heart" ng-click="vote(album)"></span> likes: {{upvotes}}</li>
 
             </ul>
           </div>

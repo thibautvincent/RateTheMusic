@@ -128,7 +128,7 @@ exports.vote = function(req, res) {
     album.save(function(err){
       if(err) {return handleError(res, err)};
       console.log(album);
-      return res.status(200).json(album.upvotes.length);
+      return res.status(200).json(album.upvotes);
     });
   });
 }
