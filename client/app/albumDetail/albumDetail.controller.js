@@ -11,7 +11,7 @@ angular.module('rateTheMusicApp')
         $scope.upvotes = album.upvotes.length;
         getComments(album);
         $scope.songs = getSongs(album.songs);
-        like(album.upvotes);
+        changeLike(album.upvotes);
       });
     }
 
@@ -36,7 +36,8 @@ angular.module('rateTheMusicApp')
       }).error(function(err){
         console.log(err);
       });
-    }
+    };
+
     function getComments(album){
       $scope.comments = [];
       for(var i = 0; i < album.comments.length; i++){
@@ -50,21 +51,33 @@ angular.module('rateTheMusicApp')
         });
       }
     };
+
     $scope.vote = function(album) {
       $http.post('/api/albums/' + album._id + '/vote/' + Auth.getCurrentUser()._id)
       .success(function(upvotes){
         $scope.upvotes = upvotes.length;
-        like(upvotes);
+        changeLike(upvotes);
       });
     };
 
-    function like(upvotes){
+    function changeLike(upvotes){
+      if(upvotes.length === 0){
+        unlike();
+      }
       angular.forEach(upvotes, function(vote){
         if(vote === Auth.getCurrentUser()._id){
-          $('#likebtn').addClass('liked');
+          like();
         }else{
-          $('#likebtn').removeClass('liked');
+          unlike();
         }
       });
-    }
+    };
+
+    function like(){
+      $('#likebtn').addClass('liked');
+    };
+
+    function unlike(){
+      $('#likebtn').removeClass('liked');
+    };
   });

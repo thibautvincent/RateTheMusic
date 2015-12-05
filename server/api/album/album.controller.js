@@ -5,7 +5,6 @@ var Song = require('../song/song.model');
 var Album = require('./album.model');
 var Comment = require('../comment/comment.model');
 var mongoose = require('mongoose');
-var Promise = require('bluebird');
 
 // Get list of albums
 exports.index = function(req, res) {
@@ -20,34 +19,10 @@ exports.show = function(req, res) {
   Album.findById(req.params.id, function (err, album) {
     if(err) { return handleError(res, err); }
     if(!album) { return res.status(404).send('Not Found'); }
-    // for(var i = 0; album.comments.length; i++){
-    //   Comment.findById(album.comments[i], function(err, comment){
-    //     if (err) { return handleError(res, err); }
-    //     album.comments[i] = comment;
-    //   });
-    // }
     return res.json(album);
   });
 };
-//Get comments from album
-exports.getComments = function(req, res){
 
-  var commentsFull = [];
-  console.log('comments');
-  Album.findById(req.params.id)
-    .then(function (err, album) {
-      if(err) { return handleError(res, err); }
-      if(!album) { return res.status(404).send('Not Found'); }
-      return Comment.find({
-        _id: {
-          $in: album.comments
-        }
-      });
-    })
-    .then(function (comments) {
-      return res.status(200).json(comments);
-    });
-};
 // Creates a new album in the DB.
 exports.create = function(req, res) {
   Album.create(req.body, function(err, album) {
@@ -87,19 +62,13 @@ exports.addSong = function(req, res){
     Album.findById(req.params.id, function (err, album){
       if(err) {return handleError(res,err);}
       if(!album) { return res.status(404).send('Not Found'); }
-
       Song.find({})
       .then(function(songs){
-
         var song = new Song(req.body);
         for (var i = 0; i < songs.length; i++) {
           Song.findById(songs[i])
           .then(function(song){
-            console.log(song.title);
-            console.log(req.body.title);
-            console.log(song.title === req.body.title);
             if(song.title === req.body.title ){
-
               return res.status(201).send("Already exists");
             }
           });

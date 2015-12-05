@@ -3,6 +3,7 @@
 <div class="container">
     <div class="header-container col-lg-12">
       <h1 class="page-header">Overview</h1>
+    </div>
       <div class="album-detail">
         <div class="inner-content">
           <div class="image-container col-xs-6 col-sm-4">
@@ -20,7 +21,8 @@
             </ul>
           </div>
         </div>
-        <div class="song-content" >
+        <div class="song-content col-xs-12 col-sm-6 col-md-8" >
+          <h2>Songs</h2>
           <ul ng-repeat="song in songs">
             <li>{{song.title}}</li>
           </ul>
@@ -28,18 +30,18 @@
 
         <div class="comment-content col-xs-12 col-sm-6 col-md-8">
           <div class= "comments" ng-repeat="comment in comments">
+            <hr>
             <div class="comment-content">
             <h6>{{comment.title}}</h6>
             <p>{{comment.body}}</p>
             <h5>Posted by: {{author}}</h5>
-            <span><uib-rating class="current-rating" ng-model="review.rating" max="5" readonly="true"></uib-rating></span>
+            <hr>
           </div>
         </div>
         <form class="form" name="form" ng-submit="addComment(comment)" novalidate>
           <div class="form-group" show-errors>
             <div class="form-title-container col-lg-8 col-md-8 col-sm-8 col-xs-8">
-              <input name="title" type="text" ng-model="comment.title" placeholder="Title" class="form-control
-               " required/>
+              <input name="title" type="text" ng-model="comment.title" placeholder="Title" class="form-control" required/>
                <p class="help-block" ng-if="form.title.$error.required">Title is required</p>
             </div>
           </div>
@@ -47,13 +49,12 @@
             <textarea name="body" type="text" ng-model="comment.body" placeholder="Review" class="form-control" required/>
             <p class="help-block" ng-if="form.body.$error.required">Review is required</p>
           </div>
-          <div class="submit-button">
+          <div class="comment-button">
             <button type="submit">Submit</button>
           </div>
         </form>
       </div>
         </div>
-      </div>
     </div>
   </div>
     </div>
