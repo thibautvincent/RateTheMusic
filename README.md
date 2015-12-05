@@ -13,7 +13,7 @@
 #### Install required tools 'grunt' and 'bower'
 
 ```
-npm install -g gulp bower
+npm install -g grunt bower
 
 ```
 
