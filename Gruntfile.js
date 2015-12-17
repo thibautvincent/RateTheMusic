@@ -11,11 +11,11 @@ module.exports = function (grunt) {
 
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
-    express: 'grunt-express-server',
-    useminPrepare: 'grunt-usemin',
-    ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn',
-    protractor: 'grunt-protractor-runner',
+    express: 'grunt-express-server', //start grunt server
+    useminPrepare: 'grunt-usemin', // minification
+    ngtemplates: 'grunt-angular-templates', //get templates + performance
+    cdnify: 'grunt-google-cdn', //Grunt plugin for rewriting static resource URLs found in your HTML and CSS.
+    protractor: 'grunt-protractor-runner', //end-to-end testen
     buildcontrol: 'grunt-build-control'
   });
 
@@ -103,9 +103,9 @@ module.exports = function (grunt) {
         files: [
           '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.css',
           '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.html',
-          
+
           '.tmp/{app,components}/**/*.js',
-          
+
           '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
           '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
           '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -476,7 +476,7 @@ module.exports = function (grunt) {
 
     // Compiles ES6 to JavaScript using Babel
     babel: {
-      options: { 
+      options: {
         sourceMap: true
       },
       server: {
@@ -527,12 +527,12 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.client %>/index.html': [
                [
-                 
+
                  '.tmp/{app,components}/**/*.js',
-                 
-                 '!{.tmp,<%= yeoman.client %>}/app/app.js',               
+
+                 '!{.tmp,<%= yeoman.client %>}/app/app.js',
                  '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
-                 '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js'               
+                 '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js'
                ]
             ]
         }
@@ -602,7 +602,7 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',
-        'injector:sass', 
+        'injector:sass',
         'concurrent:server',
         'injector',
         'wiredep',
@@ -614,7 +614,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'env:all',
-      'injector:sass', 
+      'injector:sass',
       'concurrent:server',
       'injector',
       'wiredep',
@@ -644,7 +644,7 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',
-        'injector:sass', 
+        'injector:sass',
         'concurrent:test',
         'injector',
         'autoprefixer',
@@ -657,7 +657,7 @@ module.exports = function (grunt) {
         'clean:server',
         'env:all',
         'env:test',
-        'injector:sass', 
+        'injector:sass',
         'concurrent:test',
         'injector',
         'wiredep',
@@ -675,7 +675,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'injector:sass', 
+    'injector:sass',
     'concurrent:dist',
     'injector',
     'wiredep',

@@ -31,7 +31,7 @@ angular.module('rateTheMusicApp')
     };
 
     $scope.update = function(album,form){
-      if(form!=null) {
+      if(form !== null) {
         $http.put('/api/albums/' + album._id, form)
         .success(function(){
           $http.get('/api/albums')
@@ -60,7 +60,7 @@ angular.module('rateTheMusicApp')
       $http.post('/api/albums/' + $scope.selectedalbum._id + '/songs/', song)
       .success(function(song){
         $scope.songs.push(song);
-      })
+      });
     };
 
     function getSongs(songs){
@@ -72,7 +72,7 @@ angular.module('rateTheMusicApp')
         });
       }
       return tempSongs;
-    };
+    }
 
     function changeStatus(album){
       $http.get('/api/albums')
@@ -88,6 +88,6 @@ angular.module('rateTheMusicApp')
             $scope.open[albums[i]._id] = false;
           }
         }
-      })
+      });
     }
 });

@@ -24,7 +24,7 @@ angular.module('rateTheMusicApp')
         });
       }
       return tempSongs;
-    };
+    }
 
     $scope.addComment = function(comment){
       //apicall to add comment
@@ -47,10 +47,10 @@ angular.module('rateTheMusicApp')
           $http.get('/api/users/' + comment.author)
           .success(function(user){
             $scope.author = user.name;
-          })
+          });
         });
       }
-    };
+    }
 
     $scope.vote = function(album) {
       $http.post('/api/albums/' + album._id + '/vote/' + Auth.getCurrentUser()._id)
@@ -71,13 +71,13 @@ angular.module('rateTheMusicApp')
           unlike();
         }
       });
-    };
+    }
 
     function like(){
       $('#likebtn').addClass('liked');
-    };
+    }
 
     function unlike(){
       $('#likebtn').removeClass('liked');
-    };
+    }
   });
