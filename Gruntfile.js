@@ -29,7 +29,7 @@ module.exports = function (grunt) {
     pkg: grunt.file.readJSON('package.json'),
     yeoman: {
       // configurable paths
-      client: require('./bower.json').appPath || 'client',
+      client: require('./package.json').appPath || 'client',
       dist: 'dist'
     },
     express: {
@@ -39,7 +39,7 @@ module.exports = function (grunt) {
       dev: {
         options: {
           script: 'server/app.js',
-          debug: true
+          nodeArgs: ['--inspect-brk'],
         }
       },
       prod: {
@@ -206,7 +206,7 @@ module.exports = function (grunt) {
       debug: {
         script: 'server/app.js',
         options: {
-          nodeArgs: ['--debug-brk'],
+          nodeArgs: ['--inspect-brk'],
           env: {
             PORT: process.env.PORT || 9000
           },
@@ -223,15 +223,6 @@ module.exports = function (grunt) {
             });
           }
         }
-      }
-    },
-
-    // Automatically inject Bower components into the app
-    wiredep: {
-      target: {
-        src: '<%= yeoman.client %>/index.html',
-        ignorePath: '<%= yeoman.client %>/',
-        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/ ]
       }
     },
 
@@ -360,7 +351,7 @@ module.exports = function (grunt) {
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
-            'bower_components/**/*',
+            'node_components/**/*',
             'assets/images/{,*/}*.{webp}',
             'assets/fonts/**/*',
             'index.html'
@@ -497,7 +488,7 @@ module.exports = function (grunt) {
       server: {
         options: {
           loadPath: [
-            '<%= yeoman.client %>/bower_components',
+            '<%= yeoman.client %>/node_components',
             '<%= yeoman.client %>/app',
             '<%= yeoman.client %>/components'
           ],
@@ -605,7 +596,6 @@ module.exports = function (grunt) {
         'injector:sass',
         'concurrent:server',
         'injector',
-        'wiredep',
         'autoprefixer',
         'concurrent:debug'
       ]);
@@ -617,7 +607,6 @@ module.exports = function (grunt) {
       'injector:sass',
       'concurrent:server',
       'injector',
-      'wiredep',
       'autoprefixer',
       'express:dev',
       'wait',
@@ -660,7 +649,6 @@ module.exports = function (grunt) {
         'injector:sass',
         'concurrent:test',
         'injector',
-        'wiredep',
         'autoprefixer',
         'express:dev',
         'protractor'
@@ -678,7 +666,6 @@ module.exports = function (grunt) {
     'injector:sass',
     'concurrent:dist',
     'injector',
-    'wiredep',
     'useminPrepare',
     'autoprefixer',
     'ngtemplates',
